@@ -18,25 +18,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
+    console.log("🔐 Inicializando Auth...");
+    
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      if (session?.user) {
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (error) console.error("❌ Error recuperando sesión:", error);
+      
+      if (session) {
+        console.log("✅ Sesión encontrada:", session.user.email);
+        setUser(session.user);
         checkAdmin(session.user.id);
+      } else {
+        console.log("ℹ️ No hay sesión activa.");
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
+      async (event, session) => {
+        console.log("🔄 Cambio de Auth:", event);
         setUser(session?.user ?? null);
+        
         if (session?.user) {
           await checkAdmin(session.user.id);
         } else {
           setIsAdmin(false);
+          setLoading(false);
         }
-        setLoading(false);
       }
     );
 
@@ -45,15 +54,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const checkAdmin = async (userId: string) => {
     try {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('usuarios')
         .select('rol')
         .eq('id', userId)
         .single();
 
-      setIsAdmin(data?.rol === 'admin');
-    } catch {
+      if (error) {
+        console.warn("⚠️ No se pudo obtener el rol del usuario:", error.message);
+        setIsAdmin(false);
+      } else {
+        console.log("👑 Rol detectado:", data?.rol);
+        setIsAdmin(data?.rol === 'admin');
+      }
+    } catch (err) {
+      console.error("❌ Error crítico en checkAdmin:", err);
       setIsAdmin(false);
+    } finally {
+      setLoading(false);
     }
   };
 
