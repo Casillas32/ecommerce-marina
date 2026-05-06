@@ -1,0 +1,602 @@
+.page {
+  padding: 48px 0 80px;
+  position: relative;
+  z-index: 1;
+  min-height: 80vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ═══ Steps Indicator ═══ */
+.steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition);
+}
+
+.stepActive {
+  background: var(--gradient-primary);
+  border-color: transparent;
+}
+
+.stepNumber {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  background: rgba(255,255,255,0.15);
+  color: var(--text-muted);
+}
+
+.stepActive .stepNumber {
+  background: rgba(255,255,255,0.3);
+  color: white;
+}
+
+.stepLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  display: none;
+}
+
+.stepActive .stepLabel {
+  color: white;
+}
+
+@media (min-width: 600px) {
+  .stepLabel {
+    display: inline;
+  }
+}
+
+.stepLine {
+  width: 32px;
+  height: 2px;
+  background: var(--glass-border);
+  margin: 0 4px;
+}
+
+/* ═══ Layout ═══ */
+.checkoutLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 900px) {
+  .checkoutLayout {
+    grid-template-columns: 1fr 340px;
+    align-items: start;
+  }
+}
+
+/* ═══ Step Card ═══ */
+.stepCard {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.stepCard h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 24px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 600px) {
+  .formGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.stepActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+/* ═══ Payment Section ═══ */
+.paymentIntro {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+/* Bank Card */
+.bankCard {
+  background: linear-gradient(135deg, rgba(232, 67, 147, 0.06), rgba(0, 206, 201, 0.04));
+  border: 1px solid rgba(232, 67, 147, 0.15);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  margin-bottom: 28px;
+}
+
+.bankHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.bankIcon {
+  font-size: 32px;
+}
+
+.bankHeader h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.bankDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bankRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bankLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bankValue {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.bankValueMono {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent-primary);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+}
+
+.copyField {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.copyBtn {
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.copyBtn:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: white;
+}
+
+.bankAmount {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+}
+
+.bankAmount span {
+  color: var(--text-muted);
+}
+
+.bankAmount strong {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--accent-primary);
+}
+
+/* Instructions */
+.instructions {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 28px;
+}
+
+.instructions h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 16px;
+}
+
+.instructions ol {
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.instructions li {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.instructions strong {
+  color: var(--accent-primary);
+}
+
+/* Upload */
+.uploadSection {
+  margin-bottom: 8px;
+}
+
+.uploadSection h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.uploadHint {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+
+.uploadArea {
+  border: 2px dashed var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.uploadArea:hover {
+  border-color: var(--accent-primary);
+}
+
+.uploadLabel {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.uploadLabel span {
+  font-size: 32px;
+}
+
+.uploadLabel p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.comprobantePreview {
+  position: relative;
+  display: inline-block;
+}
+
+.comprobantePreview img {
+  max-height: 200px;
+  border-radius: var(--radius-md);
+}
+
+.comprobantePreview button {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--accent-coral);
+  color: white;
+  cursor: pointer;
+  border: 2px solid var(--bg-primary);
+}
+
+/* ═══ Confirm Step ═══ */
+.confirmSection {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.confirmSection:last-of-type {
+  border-bottom: none;
+}
+
+.confirmSection h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+.confirmData {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.confirmData p {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.confirmData strong {
+  color: var(--text-main);
+}
+
+.notes {
+  margin-top: 8px;
+  font-style: italic;
+  color: var(--text-dim) !important;
+}
+
+.confirmItems {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.confirmItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-muted);
+  padding: 6px 0;
+}
+
+.confirmTotals {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.confirmRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.confirmTotal {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--glass-border);
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  color: var(--text-main) !important;
+}
+
+.comprobanteNote {
+  font-size: 14px;
+  color: var(--accent-green);
+}
+
+/* ═══ Sidebar ═══ */
+.sidebarCard {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  position: sticky;
+  top: 100px;
+}
+
+.sidebarCard h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 20px;
+}
+
+.sidebarItems {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--glass-border);
+  margin-bottom: 16px;
+}
+
+.sidebarItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebarItemImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebarItemImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sidebarItemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebarItemName {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-main);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebarItemQty {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.sidebarItemPrice {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+  flex-shrink: 0;
+}
+
+.sidebarTotals {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebarRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.sidebarTotal {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--glass-border);
+  font-weight: 800 !important;
+  color: var(--text-main) !important;
+  font-size: 16px !important;
+}
+
+.freeShipHint {
+  margin-top: 16px;
+  padding: 10px 14px;
+  background: rgba(253, 203, 110, 0.08);
+  border: 1px solid rgba(253, 203, 110, 0.15);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: var(--accent-gold);
+  text-align: center;
+}
+
+/* ═══ Success ═══ */
+.successCard {
+  text-align: center;
+  padding: 100px 24px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.successIcon {
+  font-size: 72px;
+  display: block;
+  margin-bottom: 24px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.successCard h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+.successCard > p {
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.successActions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ═══ Empty ═══ */
+.empty {
+  text-align: center;
+  padding: 100px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty span {
+  font-size: 72px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.empty h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.empty p {
+  color: var(--text-muted);
+}

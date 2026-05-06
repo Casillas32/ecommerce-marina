@@ -1,0 +1,374 @@
+.page {
+  padding: 48px 0 80px;
+  position: relative;
+  z-index: 1;
+  min-height: 80vh;
+}
+
+/* ═══ Header ═══ */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* ═══ Form Card ═══ */
+.formCard {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  margin-bottom: 40px;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.formCard h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 28px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .formGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ═══ Image Upload ═══ */
+.imageUpload label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+.dropZone {
+  border: 2px dashed var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  background: var(--glass-bg);
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropZone:hover {
+  border-color: var(--accent-primary);
+  background: rgba(232, 67, 147, 0.03);
+}
+
+.dropContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropIcon {
+  font-size: 40px;
+}
+
+.dropContent p {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.dropContent small {
+  color: var(--text-dim);
+  font-size: 13px;
+}
+
+.previewContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.preview {
+  max-height: 200px;
+  max-width: 100%;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+}
+
+.removeImage {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-coral);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 2px solid var(--bg-primary);
+}
+
+/* ═══ Toggle Switch ═══ */
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.toggleLabel input {
+  display: none;
+}
+
+.toggleSwitch {
+  width: 44px;
+  height: 24px;
+  background: var(--bg-tertiary);
+  border-radius: 12px;
+  position: relative;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.toggleSwitch::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  top: 3px;
+  left: 3px;
+  transition: var(--transition);
+}
+
+.toggleLabel input:checked + .toggleSwitch {
+  background: var(--accent-green);
+}
+
+.toggleLabel input:checked + .toggleSwitch::after {
+  transform: translateX(20px);
+}
+
+/* ═══ Form Actions ═══ */
+.formActions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding-top: 8px;
+}
+
+/* ═══ Products List ═══ */
+.productsList {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.listHeader {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.listHeader h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.listGrid {
+  display: flex;
+  flex-direction: column;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--glass-border);
+  transition: var(--transition);
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+.listItem:hover {
+  background: var(--glass-bg-strong);
+}
+
+.inactive {
+  opacity: 0.5;
+}
+
+.listImage {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--bg-tertiary);
+}
+
+.listImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.listNoImage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.listInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.listInfo h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.listMeta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.listCategory {
+  font-size: 12px;
+  color: var(--accent-primary);
+  font-weight: 500;
+}
+
+.listPrice {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+.listStock {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.listActions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.statusToggle, .editBtn, .deleteBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.statusToggle:hover {
+  background: rgba(0, 206, 201, 0.1);
+  border-color: var(--accent-secondary);
+}
+
+.editBtn:hover {
+  background: rgba(253, 203, 110, 0.1);
+  border-color: var(--accent-gold);
+}
+
+.deleteBtn:hover {
+  background: rgba(255, 118, 117, 0.1);
+  border-color: var(--accent-coral);
+}
+
+/* ═══ States ═══ */
+.loadingState {
+  text-align: center;
+  padding: 60px;
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px;
+}
+
+.emptyState span {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.emptyState p {
+  color: var(--text-muted);
+}
+
+.accessDenied {
+  text-align: center;
+  padding: 120px 24px;
+}
+
+.accessDenied span {
+  font-size: 64px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.accessDenied h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.accessDenied p {
+  color: var(--text-muted);
+}
