@@ -7,28 +7,45 @@ const BUCKET_NAME = 'productos';
  * Retorna la URL pública de la imagen.
  */
 export async function uploadImage(file: File, folder: string = 'productos'): Promise<string> {
-  // Crear nombre único para el archivo
+  // Simplificar nombre del archivo para evitar errores de caracteres
   const fileExt = file.name.split('.').pop();
-  const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+  const fileName = `${Date.now()}.${fileExt}`; // Nombre super simple: timestamp.ext
+  const path = `${folder}/${fileName}`;
 
-  const { data, error } = await supabase.storage
-    .from(BUCKET_NAME)
-    .upload(fileName, file, {
-      cacheControl: '3600',
-      upsert: false,
-    });
+  console.log("📤 Intentando subir a:", BUCKET_NAME, "Path:", path);
 
-  if (error) {
-    console.error('Error uploading image:', error);
-    throw new Error(`Error al subir imagen: ${error.message}`);
+  try {
+    // Timeout manual de 20 segundos por si se queda colgado
+    const uploadPromise = supabase.storage
+      .from(BUCKET_NAME)
+      .upload(path, file, {
+        cacheControl: '3600',
+        upsert: false,
+      });
+
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error("Tiempo de espera agotado (20s). ¿Tu conexión es estable?")), 20000)
+    );
+
+    const { data, error } = await Promise.race([uploadPromise, timeoutPromise]) as any;
+
+    if (error) {
+      console.error('❌ Error de Supabase Storage:', error);
+      throw new Error(error.message || "Error desconocido en Storage");
+    }
+
+    if (!data) throw new Error("No se recibieron datos de la subida");
+
+    const { data: urlData } = supabase.storage
+      .from(BUCKET_NAME)
+      .getPublicUrl(data.path);
+
+    console.log("✅ URL generada:", urlData.publicUrl);
+    return urlData.publicUrl;
+  } catch (err: any) {
+    console.error('❌ Error crítico en uploadImage:', err);
+    throw err;
   }
-
-  // Obtener la URL pública
-  const { data: urlData } = supabase.storage
-    .from(BUCKET_NAME)
-    .getPublicUrl(data.path);
-
-  return urlData.publicUrl;
 }
 
 /**
