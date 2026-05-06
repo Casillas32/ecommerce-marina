@@ -112,6 +112,7 @@ export default function AdminPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("🚀 Iniciando guardado...", form);
     setSaving(true);
 
     try {
@@ -121,11 +122,14 @@ export default function AdminPage() {
 
       // Upload image if new file selected
       if (imageFile) {
+        console.log("📸 Subiendo imagen a Supabase...");
         setUploading(true);
         try {
           imagen_url = await uploadImage(imageFile, form.categoria);
+          console.log("✅ Imagen subida:", imagen_url);
         } catch (err: any) {
-          showMessage('error', err.message || "Error al subir imagen");
+          console.error("❌ Error en Storage:", err);
+          alert("Error al subir imagen: " + err.message);
           setSaving(false);
           setUploading(false);
           return;
@@ -143,28 +147,33 @@ export default function AdminPage() {
         activo: form.activo,
       };
 
+      console.log("💾 Insertando en base de datos...", productoData);
+
       if (editingId) {
-        // Update
         const { error } = await supabase
           .from("productos")
           .update(productoData)
           .eq("id", editingId);
 
         if (error) throw error;
-        showMessage('success', '✅ Producto actualizado correctamente');
+        alert("✅ Producto actualizado!");
       } else {
-        // Insert
         const { error } = await supabase
           .from("productos")
           .insert(productoData);
 
-        if (error) throw error;
-        showMessage('success', '✅ Producto agregado correctamente');
+        if (error) {
+          console.error("❌ Error de Supabase:", error);
+          throw error;
+        }
+        alert("✅ Producto agregado con éxito!");
       }
 
       resetForm();
       fetchProductos();
     } catch (err: any) {
+      console.error("❌ Error final:", err);
+      alert("Error crítico: " + (err.message || "Error desconocido"));
       showMessage('error', err.message || "Error al guardar producto");
     } finally {
       setSaving(false);
